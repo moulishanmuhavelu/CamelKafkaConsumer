@@ -71,7 +71,7 @@ public class KafkaRouteBuilder extends RouteBuilder {
 		ThrottlingExceptionRoutePolicy routePolicy = new ThrottlingExceptionRoutePolicy(1, 30000, 60000, throttledExceptions);
 		routePolicy.setHalfOpenHandler(() -> {
 			logger.debug("event=healthCheckStarted");
-			return kafkaProcessor.checkIfPulseAvailable();
+			return kafkaProcessor.checkIfServiceAvailable();
 		});
 		return routePolicy;
 	}

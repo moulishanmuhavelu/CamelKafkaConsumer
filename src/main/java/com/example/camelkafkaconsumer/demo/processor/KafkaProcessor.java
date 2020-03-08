@@ -97,10 +97,10 @@ public class KafkaProcessor implements Processor {
 	}
 
 	/**
-	 * Checks if Server is available
+	 * Checks if Service is available
 	 * @return true or false based on server availability
 	 */
-	public boolean checkIfServerAvailable() {
+	public boolean checkIfServiceAvailable() {
 		try {
 			HttpStatus httpStatus = doHealthCheck();
 			return (httpStatus.is2xxSuccessful());
