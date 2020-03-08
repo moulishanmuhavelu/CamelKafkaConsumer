@@ -17,7 +17,10 @@ import org.springframework.stereotype.Component;
 
 import com.example.camelkafkaconsumer.demo.config.KafkaConfig;
 import com.example.camelkafkaconsumer.demo.exception.ServerUnavailableException;
+import com.example.camelkafkaconsumer.demo.processor.HttpStatus;
 import com.example.camelkafkaconsumer.demo.processor.KafkaProcessor;
+import com.example.camelkafkaconsumer.demo.processor.ResponseEntity;
+import com.example.camelkafkaconsumer.demo.processor.RestClientException;
 
 @Component
 public class KafkaRouteBuilder extends RouteBuilder {
@@ -67,7 +70,8 @@ public class KafkaRouteBuilder extends RouteBuilder {
 		throttledExceptions.add(ServerUnavailableException.class);
 		ThrottlingExceptionRoutePolicy routePolicy = new ThrottlingExceptionRoutePolicy(1, 30000, 60000, throttledExceptions);
 		routePolicy.setHalfOpenHandler(() -> {
-			return kafkaProcessor.checkIfServerAvailable();
+			logger.debug("event=healthCheckStarted");
+			return kafkaProcessor.checkIfPulseAvailable();
 		});
 		return routePolicy;
 	}
