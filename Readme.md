@@ -1,9 +1,7 @@
 # Getting Started
 
 ## Introduction
-The purpose of this project is to reproduce the issue related to kafka consumer count number reducing from a defined value to default value inline with the ThrottlingExceptionRoutePolicy when defined.
-This project describes the behaviour of how a ThrottlingExceptionRoutePolicy pitches in when a server is unavailable while processing the messages using Camel Kafka.
-The project runs initially with 15 consumer threads, but drops to 1 after the consumers are restarted after the server is available.
+This is a sample project to consume messages from Kafka and show how to handle failure scenario when the downstream system is down. This consumer application will stop consuming messages when the downstream system is down and keep checking the health of the downstream system regularly. Once the downstream system is up again, the application will start consuming messages from Kafka. 
 
 ### Pre-Requisites
 * [JDK 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -32,10 +30,7 @@ The project runs initially with 15 consumer threads, but drops to 1 after the co
 
 
 ### Order of Execution
-Ensure that the below 2 applications are running before starting SimpleCamelKafkaConsumer application.
-
-	SimpleRestInterface
-	SimpleCamelKafkaProducer
+Ensure that the MySampleRestService application is running before starting CamelKafkaConsumer application.
 
 ### Steps to Execute
 Run the application using the below command
@@ -53,7 +48,5 @@ The below steps are the observation after application is started
 4. Stopping consumers on the topic
 5. Health check is performed by calling /healthCheck endpoint
 6. HealthCheck succeeds and Circuit is Closed
-7. All the kafka consumers start subscribing and un-subscribing one by one, the last thread remains active 
+7. Kafka Consumer starts consuming messages again 
 
-### Expected Behavior
-The consumer application should run with defined number of threads after server is available.
