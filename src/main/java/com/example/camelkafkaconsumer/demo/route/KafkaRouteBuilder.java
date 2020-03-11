@@ -9,7 +9,7 @@ import org.apache.camel.builder.PredicateBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.kafka.KafkaManualCommit;
-import org.apache.camel.impl.ThrottlingExceptionRoutePolicy;
+import org.apache.camel.throttling.ThrottlingExceptionRoutePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.camelkafkaconsumer.demo.config.KafkaConfig;
 import com.example.camelkafkaconsumer.demo.exception.ServerUnavailableException;
-import com.example.camelkafkaconsumer.demo.processor.HttpStatus;
 import com.example.camelkafkaconsumer.demo.processor.KafkaProcessor;
-import com.example.camelkafkaconsumer.demo.processor.ResponseEntity;
-import com.example.camelkafkaconsumer.demo.processor.RestClientException;
 
 @Component
 public class KafkaRouteBuilder extends RouteBuilder {
